@@ -1,7 +1,6 @@
-package org.codingdojo.yatzy1;
+package org.codingdojo.yatzy1.calculator;
 
 
-import org.codingdojo.yatzy1.calculator.ScoreCalculator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
