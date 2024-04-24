@@ -77,20 +77,20 @@ public class ScoreCalculator {
     }
 
     public static int calculateScoreForSmallStraightRule(List<Integer> rollValues) {
-        if (calculateScoreForStraightRule(rollValues, SMALL_STRAIGHT_VALUES)) {
+        if (checkIfRollValuesContainsAllRange(rollValues, SMALL_STRAIGHT_VALUES)) {
             return FULL_SMALL_STRAIGHT.getScore();
         }
         return ZERO.getScore();
     }
 
     public static int calculateScoreForLargeStraightRule(List<Integer> rollValues) {
-        if (calculateScoreForStraightRule(rollValues, LARGE_STRAIGHT_VALUES)) {
+        if (checkIfRollValuesContainsAllRange(rollValues, LARGE_STRAIGHT_VALUES)) {
             return FULL_LARGE_STRAIGHT.getScore();
         }
         return ZERO.getScore();
     }
 
-    private static boolean calculateScoreForStraightRule(List<Integer> rollValues, Set<Integer> range) {
+    private static boolean checkIfRollValuesContainsAllRange(List<Integer> rollValues, Set<Integer> range) {
         return range.containsAll(rollValues);
     }
 
