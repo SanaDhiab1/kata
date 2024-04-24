@@ -50,7 +50,7 @@ public class ScoreCalculator {
     }
 
 
-    public static int calculateScoreFor_N_OfKindRule(List<Integer> rollValues, Integer ruleNumber) {
+    public static int calculateScoreForNofKindRule(List<Integer> rollValues, Integer ruleNumber) {
         Map<Integer, List<Integer>> groupedByDiceValue = groupByDiceValues(rollValues);
 
         Optional<Map.Entry<Integer, List<Integer>>> filtredEntry = groupedByDiceValue.entrySet().stream().
@@ -62,14 +62,14 @@ public class ScoreCalculator {
     }
 
     public static int calculateScoreForFullHouseRule(List<Integer> rollValues) {
-        int scoreForThreeOfAkind = calculateScoreFor_N_OfKindRule(rollValues, THREE_OF_A_KIND.getNumber());
+        int scoreForThreeOfAkind = calculateScoreForNofKindRule(rollValues, THREE_OF_A_KIND.getNumber());
         if (scoreForThreeOfAkind == ZERO.getScore()) {
             return ZERO.getScore();
         }
         List<Integer> remainingRollValues = rollValues.stream().
                 filter(value -> value != (scoreForThreeOfAkind / THREE_OF_A_KIND.getNumber())).
                 toList();
-        int scoreForTwoOfAkind = calculateScoreFor_N_OfKindRule(remainingRollValues, TWO_OF_A_KIND.getNumber());
+        int scoreForTwoOfAkind = calculateScoreForNofKindRule(remainingRollValues, TWO_OF_A_KIND.getNumber());
         if (scoreForTwoOfAkind == ZERO.getScore()) {
             return ZERO.getScore();
         }
@@ -91,7 +91,7 @@ public class ScoreCalculator {
     }
 
     private static boolean checkIfRollValuesContainsAllRange(List<Integer> rollValues, Set<Integer> range) {
-        return range.containsAll(rollValues);
+        return new HashSet<>(rollValues).containsAll(range);
     }
 
     private static Map<Integer, List<Integer>> groupByDiceValues(List<Integer> values) {

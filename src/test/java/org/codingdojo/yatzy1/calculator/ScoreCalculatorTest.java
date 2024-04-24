@@ -125,21 +125,21 @@ class ScoreCalculatorTest {
 
     @Test
     void three_of_a_kind_score_test_first_case() {
-        int actual = ScoreCalculator.calculateScoreFor_N_OfKindRule(List.of(3, 3, 3, 4, 5), THREE_OF_A_KIND.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 3, 4, 5), THREE_OF_A_KIND.getNumber());
 
         assertEquals(9, actual);
     }
 
     @Test
     void three_of_a_kind_score_test_second_case() {
-        int actual = ScoreCalculator.calculateScoreFor_N_OfKindRule(List.of(3, 3, 4, 5, 6), THREE_OF_A_KIND.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 4, 5, 6), THREE_OF_A_KIND.getNumber());
 
         assertEquals(0, actual);
     }
 
     @Test
     void three_of_a_kind_score_test_third_case() {
-        int actual = ScoreCalculator.calculateScoreFor_N_OfKindRule(List.of(3, 3, 3, 3, 1), THREE_OF_A_KIND.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 3, 3, 1), THREE_OF_A_KIND.getNumber());
 
         assertEquals(9, actual);
     }

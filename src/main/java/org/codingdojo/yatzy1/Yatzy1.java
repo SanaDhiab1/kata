@@ -24,8 +24,8 @@ public class Yatzy1 {
             case TWO_PAIRS -> calculateScoreForNPairRule(rollValues.getDiceValueList(), TWO_PAIRS.getNumber());
             case SMALL_STRAIGHT -> calculateScoreForSmallStraightRule(rollValues.getDiceValueList());
             case LARGE_STRAIGHT -> calculateScoreForLargeStraightRule(rollValues.getDiceValueList());
-            case THREE_OF_A_KIND -> calculateScoreFor_N_OfKindRule(rollValues.getDiceValueList(), THREE_OF_A_KIND.getNumber());
-            case FOUR_OF_A_KIND -> calculateScoreFor_N_OfKindRule(rollValues.getDiceValueList(), FOUR_OF_A_KIND.getNumber());
+            case THREE_OF_A_KIND -> calculateScoreForNofKindRule(rollValues.getDiceValueList(), THREE_OF_A_KIND.getNumber());
+            case FOUR_OF_A_KIND -> calculateScoreForNofKindRule(rollValues.getDiceValueList(), FOUR_OF_A_KIND.getNumber());
             case FULL_HOUSE -> calculateScoreForFullHouseRule(rollValues.getDiceValueList());
             default -> throw new Exception("Invalid rule");
         };
