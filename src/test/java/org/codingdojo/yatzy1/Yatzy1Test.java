@@ -1,7 +1,7 @@
 package org.codingdojo.yatzy1;
 
 import org.codingdojo.yatzy1.enums.RuleEnum;
-import org.codingdojo.yatzy1.model.RollValues;
+import org.codingdojo.yatzy1.model.Roll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +10,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForChanceRule() throws Exception {
-        RollValues rollValues = new RollValues(2,3,4,5,1);
+        Roll rollValues = new Roll(2,3,4,5,1);
         int expected = 15;
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.CHANCE);
@@ -20,9 +20,9 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForYatziRule() throws Exception {
-        RollValues rollValues = new RollValues(4,4,4,4,4);
+        Roll rollValues = new Roll(4,4,4,4,4);
 
-        int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.YATZI);
+        int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.YATZY);
 
         int expected = 50;
         assertEquals(expected, actual);
@@ -30,7 +30,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForOnesRule() throws Exception {
-        RollValues rollValues = new RollValues(1,2,3,4,5);
+        Roll rollValues = new Roll(1,2,3,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.ONES);
 
@@ -39,7 +39,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForTwosRule() throws Exception {
-        RollValues rollValues = new RollValues(2,2,3,4,5);
+        Roll rollValues = new Roll(2,2,3,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.TWOS);
 
@@ -48,7 +48,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForThreesRule() throws Exception {
-        RollValues rollValues = new RollValues(2,3,3,4,5);
+        Roll rollValues = new Roll(2,3,3,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.THREES);
 
@@ -57,7 +57,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForFoursRule() throws Exception {
-        RollValues rollValues = new RollValues(2,1,3,4,5);
+        Roll rollValues = new Roll(2,1,3,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.FOURS);
 
@@ -66,7 +66,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForFivesRule() throws Exception {
-        RollValues rollValues = new RollValues(2,5,5,4,5);
+        Roll rollValues = new Roll(2,5,5,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.FIVES);
 
@@ -75,7 +75,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForSixesRule() throws Exception {
-        RollValues rollValues = new RollValues(2,6,6,4,5);
+        Roll rollValues = new Roll(2,6,6,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.SIXES);
 
@@ -84,7 +84,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForOnePair() throws Exception {
-        RollValues rollValues = new RollValues(3,4,3,5,6);
+        Roll rollValues = new Roll(3,4,3,5,6);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.ONE_PAIR);
 
@@ -93,7 +93,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForTwoPair() throws Exception {
-        RollValues rollValues = new RollValues(3,3,5,4,5);
+        Roll rollValues = new Roll(3,3,5,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.TWO_PAIRS);
 
@@ -102,7 +102,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForThreeOfAkind() throws Exception {
-        RollValues rollValues = new RollValues(3,3,3,4,5);
+        Roll rollValues = new Roll(3,3,3,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.THREE_OF_A_KIND);
 
@@ -111,7 +111,7 @@ class Yatzy1Test {
 
     @Test
     public void calculateScoreForFourOfAkind() throws Exception {
-        RollValues rollValues = new RollValues(3,3,3,3,5);
+        Roll rollValues = new Roll(3,3,3,3,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.FOUR_OF_A_KIND);
 
@@ -120,7 +120,7 @@ class Yatzy1Test {
 
     @Test
     public void smallStraight() throws Exception {
-        RollValues rollValues = new RollValues(1,2,3,4,5);
+        Roll rollValues = new Roll(1,2,3,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.SMALL_STRAIGHT);
 
@@ -129,7 +129,7 @@ class Yatzy1Test {
 
     @Test
     public void largeStraight() throws Exception {
-        RollValues rollValues = new RollValues(6,2,3,4,5);
+        Roll rollValues = new Roll(6,2,3,4,5);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.LARGE_STRAIGHT);
 
@@ -138,7 +138,7 @@ class Yatzy1Test {
 
     @Test
     public void fullHouse() throws Exception {
-        RollValues rollValues = new RollValues(6,2,2,2,6);
+        Roll rollValues = new Roll(6,2,2,2,6);
 
         int actual = Yatzy1.calculatScoreForRule(rollValues, RuleEnum.FULL_HOUSE);
 

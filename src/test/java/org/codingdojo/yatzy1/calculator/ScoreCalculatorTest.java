@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.codingdojo.yatzy1.enums.RuleEnum.*;
+import static org.codingdojo.yatzy1.constants.DiceRulesConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ScoreCalculatorTest {
@@ -34,112 +34,112 @@ class ScoreCalculatorTest {
 
     @Test
     void fours_score_test_first_case() {
-        int actual = ScoreCalculator.calculateSumOfMatchedValues(List.of(1, 1, 2, 4, 4), FOURS.getNumber());
+        int actual = ScoreCalculator.calculateSumOfMatchedValues(List.of(1, 1, 2, 4, 4), FOURS_NUMBER);
 
         assertEquals(8, actual);
     }
 
     @Test
     void fours_score_test_second_case() {
-        int actual = ScoreCalculator.calculateSumOfMatchedValues(List.of(1, 1, 2, 4, 4), FOURS.getNumber());
+        int actual = ScoreCalculator.calculateSumOfMatchedValues(List.of(1, 1, 2, 4, 4), FOURS_NUMBER);
 
         assertEquals(8, actual);
     }
 
     @Test
     void twos_score_test() {
-        int actual = ScoreCalculator.calculateSumOfMatchedValues(List.of(2, 3, 2, 5, 1), TWOS.getNumber());
+        int actual = ScoreCalculator.calculateSumOfMatchedValues(List.of(2, 3, 2, 5, 1), SECOND_PAIR_NUMBER);
 
         assertEquals(4, actual);
     }
 
     @Test
     void ones_score_test() {
-        int actual = ScoreCalculator.calculateSumOfMatchedValues(List.of(3, 3, 3, 4, 5), ONES.getNumber());
+        int actual = ScoreCalculator.calculateSumOfMatchedValues(List.of(3, 3, 3, 4, 5), ONES_NUMBER);
 
         assertEquals(0, actual);
     }
 
     @Test
     void one_pair_score_test_first_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 2, 3, 4, 5), ONE_PAIR.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 2, 3, 4, 5), ONE_PAIR_NUMBER);
 
         assertEquals(0, actual);
     }
 
     @Test
     void one_pair_score_test_second_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(3, 3, 3, 4, 4), ONE_PAIR.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(3, 3, 3, 4, 4), ONE_PAIR_NUMBER);
 
         assertEquals(8, actual);
     }
 
     @Test
     void one_pair_score_test_third_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 1, 6, 2, 6), ONE_PAIR.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 1, 6, 2, 6), ONE_PAIR_NUMBER);
 
         assertEquals(12, actual);
     }
 
     @Test
     void one_pair_score_test_fourth_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(3, 3, 3, 4, 1), ONE_PAIR.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(3, 3, 3, 4, 1), ONE_PAIR_NUMBER);
 
         assertEquals(6, actual);
     }
 
     @Test
     void one_pair_score_test_fifth_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(3, 3, 3, 3, 1), ONE_PAIR.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(3, 3, 3, 3, 1), ONE_PAIR_NUMBER);
 
         assertEquals(6, actual);
     }
 
     @Test
     void two_pair_score_test_first_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 1, 2, 3, 3), TWO_PAIRS.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 1, 2, 3, 3), SECOND_PAIR_NUMBER);
 
         assertEquals(8, actual);
     }
 
     @Test
     void two_pair_score_test_second_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 1, 2, 3, 4), TWO_PAIRS.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 1, 2, 3, 4), SECOND_PAIR_NUMBER);
 
         assertEquals(0, actual);
     }
 
     @Test
     void two_pair_score_test_third_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 1, 2, 2, 2), TWO_PAIRS.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(1, 1, 2, 2, 2), SECOND_PAIR_NUMBER);
 
         assertEquals(6, actual);
     }
 
     @Test
     void two_pair_score_test_fourth_case() {
-        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(3, 3, 3, 3, 1), TWO_PAIRS.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNPairRule(List.of(3, 3, 3, 3, 1), SECOND_PAIR_NUMBER);
 
         assertEquals(0, actual);
     }
 
     @Test
     void three_of_a_kind_score_test_first_case() {
-        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 3, 4, 5), THREE_OF_A_KIND.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 3, 4, 5), THREE_OF_A_KIND_NUMBER);
 
         assertEquals(9, actual);
     }
 
     @Test
     void three_of_a_kind_score_test_second_case() {
-        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 4, 5, 6), THREE_OF_A_KIND.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 4, 5, 6), THREE_OF_A_KIND_NUMBER);
 
         assertEquals(0, actual);
     }
 
     @Test
     void three_of_a_kind_score_test_third_case() {
-        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 3, 3, 1), THREE_OF_A_KIND.getNumber());
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 3, 3, 1), THREE_OF_A_KIND_NUMBER);
 
         assertEquals(9, actual);
     }

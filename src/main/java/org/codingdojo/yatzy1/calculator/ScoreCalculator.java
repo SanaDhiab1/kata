@@ -4,15 +4,13 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
-import static org.codingdojo.yatzy1.enums.RuleEnum.THREE_OF_A_KIND;
-import static org.codingdojo.yatzy1.enums.RuleEnum.TWO_OF_A_KIND;
-import static org.codingdojo.yatzy1.enums.ScoreEnum.*;
+import static org.codingdojo.yatzy1.constants.DiceRulesConstants.*;
+import static org.codingdojo.yatzy1.constants.ScoreConstants.*;
 
 public class ScoreCalculator {
 
     private static final Set<Integer> SMALL_STRAIGHT_VALUES = Set.of(1, 2, 3, 4, 5);
     private static final Set<Integer> LARGE_STRAIGHT_VALUES = Set.of(2, 3, 4, 5, 6);
-    private static final int TWO = 2;
 
 
     public static int calculateScoreForChanceRule(List<Integer> rollValues) {
@@ -21,9 +19,9 @@ public class ScoreCalculator {
 
     public static int calculateScoreForYatzyRule(List<Integer> values) {
         if (values.stream().distinct().count() > 1) {
-            return ZERO.getScore();
+            return ZERO;
         }
-        return FULL_YATZI.getScore();
+        return FULL_YATZY;
     }
 
     public static int calculateSumOfMatchedValues(List<Integer> rollValues, Integer matchedValue) {
@@ -37,16 +35,16 @@ public class ScoreCalculator {
                 sorted(Collections.reverseOrder(Map.Entry.comparingByKey()));
 
         List<Map.Entry<Integer, List<Integer>>> entryList = sorted.
-                filter(entry -> entry.getValue().size() >= TWO).
+                filter(entry -> entry.getValue().size() >= PAIR_NUMBER).
                 limit(pairNumber).toList();
 
         if (entryList.size() < pairNumber) {
-            return ZERO.getScore();
+            return ZERO;
         }
         return entryList.stream().
-                map(pairEntry -> pairEntry.getKey() * TWO).
+                map(pairEntry -> pairEntry.getKey() * PAIR_NUMBER).
                 reduce(Integer::sum).
-                orElse(ZERO.getScore());
+                orElse(ZERO);
     }
 
 
@@ -58,36 +56,36 @@ public class ScoreCalculator {
                 findFirst();
 
         return filtredEntry.map(integerListEntry -> integerListEntry.getKey() * ruleNumber).
-                orElse(ZERO.getScore());
+                orElse(ZERO);
     }
 
     public static int calculateScoreForFullHouseRule(List<Integer> rollValues) {
-        int scoreForThreeOfAkind = calculateScoreForNofKindRule(rollValues, THREE_OF_A_KIND.getNumber());
-        if (scoreForThreeOfAkind == ZERO.getScore()) {
-            return ZERO.getScore();
+        int scoreForThreeOfAkind = calculateScoreForNofKindRule(rollValues, THREE_OF_A_KIND_NUMBER);
+        if (scoreForThreeOfAkind == ZERO) {
+            return ZERO;
         }
         List<Integer> remainingRollValues = rollValues.stream().
-                filter(value -> value != (scoreForThreeOfAkind / THREE_OF_A_KIND.getNumber())).
+                filter(value -> value != (scoreForThreeOfAkind / THREE_OF_A_KIND_NUMBER)).
                 toList();
-        int scoreForTwoOfAkind = calculateScoreForNofKindRule(remainingRollValues, TWO_OF_A_KIND.getNumber());
-        if (scoreForTwoOfAkind == ZERO.getScore()) {
-            return ZERO.getScore();
+        int scoreForTwoOfAkind = calculateScoreForNofKindRule(remainingRollValues, TWO_OF_A_KIND_NUMBER);
+        if (scoreForTwoOfAkind == ZERO) {
+            return ZERO;
         }
         return scoreForThreeOfAkind + scoreForTwoOfAkind;
     }
 
     public static int calculateScoreForSmallStraightRule(List<Integer> rollValues) {
         if (checkIfRollValuesContainsAllRange(rollValues, SMALL_STRAIGHT_VALUES)) {
-            return FULL_SMALL_STRAIGHT.getScore();
+            return FULL_SMALL_STRAIGHT;
         }
-        return ZERO.getScore();
+        return ZERO;
     }
 
     public static int calculateScoreForLargeStraightRule(List<Integer> rollValues) {
         if (checkIfRollValuesContainsAllRange(rollValues, LARGE_STRAIGHT_VALUES)) {
-            return FULL_LARGE_STRAIGHT.getScore();
+            return FULL_LARGE_STRAIGHT;
         }
-        return ZERO.getScore();
+        return ZERO;
     }
 
     private static boolean checkIfRollValuesContainsAllRange(List<Integer> rollValues, Set<Integer> range) {
