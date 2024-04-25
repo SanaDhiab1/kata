@@ -13,5 +13,4 @@ public class DiceRulesConstants {
     public static final int FOUR_OF_A_KIND_NUMBER = 4;
     public static final int ONE_PAIR_NUMBER = 1;
     public static final int SECOND_PAIR_NUMBER = 2;
-    public static final int PAIR_NUMBER = 2;
 }

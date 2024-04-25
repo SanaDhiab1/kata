@@ -124,6 +124,27 @@ class ScoreCalculatorTest {
     }
 
     @Test
+    void two_of_a_kind_score_test_first_case() {
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 5, 4, 4), TWO_OF_A_KIND_NUMBER);
+
+        assertEquals(8, actual);
+    }
+
+    @Test
+    void two_of_a_kind_score_test_second_case() {
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 2, 4, 5, 6), TWO_OF_A_KIND_NUMBER);
+
+        assertEquals(0, actual);
+    }
+
+    @Test
+    void two_of_a_kind_score_test_third_case() {
+        int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 3, 3, 1), TWO_OF_A_KIND_NUMBER);
+
+        assertEquals(6, actual);
+    }
+
+    @Test
     void three_of_a_kind_score_test_first_case() {
         int actual = ScoreCalculator.calculateScoreForNofKindRule(List.of(3, 3, 3, 4, 5), THREE_OF_A_KIND_NUMBER);
 

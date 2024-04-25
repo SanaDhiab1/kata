@@ -11,7 +11,7 @@ public class ScoreCalculator {
 
     private static final Set<Integer> SMALL_STRAIGHT_VALUES = Set.of(1, 2, 3, 4, 5);
     private static final Set<Integer> LARGE_STRAIGHT_VALUES = Set.of(2, 3, 4, 5, 6);
-
+    public static final int PAIR = 2;
 
     public static int calculateScoreForChanceRule(List<Integer> rollValues) {
         return rollValues.stream().mapToInt(Integer::intValue).sum();
@@ -30,19 +30,17 @@ public class ScoreCalculator {
 
     public static int calculateScoreForNPairRule(List<Integer> rollValues, int pairNumber) {
         Map<Integer, List<Integer>> groupedByDiceValue = groupByDiceValues(rollValues);
-        Stream<Map.Entry<Integer, List<Integer>>> sorted = groupedByDiceValue.entrySet().
-                stream().
-                sorted(Collections.reverseOrder(Map.Entry.comparingByKey()));
+        Stream<Map.Entry<Integer, List<Integer>>> sorted = sortGroupedValuesByKey(groupedByDiceValue);
 
         List<Map.Entry<Integer, List<Integer>>> entryList = sorted.
-                filter(entry -> entry.getValue().size() >= PAIR_NUMBER).
+                filter(entry -> entry.getValue().size() >= PAIR).
                 limit(pairNumber).toList();
 
         if (entryList.size() < pairNumber) {
             return ZERO;
         }
         return entryList.stream().
-                map(pairEntry -> pairEntry.getKey() * PAIR_NUMBER).
+                map(pairEntry -> pairEntry.getKey() * PAIR).
                 reduce(Integer::sum).
                 orElse(ZERO);
     }
@@ -51,45 +49,56 @@ public class ScoreCalculator {
     public static int calculateScoreForNofKindRule(List<Integer> rollValues, Integer ruleNumber) {
         Map<Integer, List<Integer>> groupedByDiceValue = groupByDiceValues(rollValues);
 
-        Optional<Map.Entry<Integer, List<Integer>>> filtredEntry = groupedByDiceValue.entrySet().stream().
+        Stream<Map.Entry<Integer, List<Integer>>> sorted = sortGroupedValuesByKey(groupedByDiceValue);
+
+        Optional<Map.Entry<Integer, List<Integer>>> filtredEntry = sorted.
                 filter(entry -> entry.getValue().size() >= ruleNumber).
                 findFirst();
 
-        return filtredEntry.map(integerListEntry -> integerListEntry.getKey() * ruleNumber).
+        return filtredEntry.map(diceValuesEntry -> diceValuesEntry.getKey() * ruleNumber).
                 orElse(ZERO);
     }
 
     public static int calculateScoreForFullHouseRule(List<Integer> rollValues) {
-        int scoreForThreeOfAkind = calculateScoreForNofKindRule(rollValues, THREE_OF_A_KIND_NUMBER);
-        if (scoreForThreeOfAkind == ZERO) {
+        int scoreForThreeOfkind = calculateScoreForNofKindRule(rollValues, THREE_OF_A_KIND_NUMBER);
+        if (scoreForThreeOfkind == ZERO) {
             return ZERO;
         }
         List<Integer> remainingRollValues = rollValues.stream().
-                filter(value -> value != (scoreForThreeOfAkind / THREE_OF_A_KIND_NUMBER)).
+                filter(value -> value != (scoreForThreeOfkind / THREE_OF_A_KIND_NUMBER)).
                 toList();
-        int scoreForTwoOfAkind = calculateScoreForNofKindRule(remainingRollValues, TWO_OF_A_KIND_NUMBER);
-        if (scoreForTwoOfAkind == ZERO) {
+        int scoreForTwoOfkind = calculateScoreForNofKindRule(remainingRollValues, TWO_OF_A_KIND_NUMBER);
+        if (scoreForTwoOfkind == ZERO) {
             return ZERO;
         }
-        return scoreForThreeOfAkind + scoreForTwoOfAkind;
+        return scoreForThreeOfkind + scoreForTwoOfkind;
     }
 
     public static int calculateScoreForSmallStraightRule(List<Integer> rollValues) {
-        if (checkIfRollValuesContainsAllRange(rollValues, SMALL_STRAIGHT_VALUES)) {
-            return FULL_SMALL_STRAIGHT;
-        }
-        return ZERO;
+        return calculateScoreForStraightRule(rollValues, SMALL_STRAIGHT_VALUES, FULL_SMALL_STRAIGHT);
     }
 
     public static int calculateScoreForLargeStraightRule(List<Integer> rollValues) {
-        if (checkIfRollValuesContainsAllRange(rollValues, LARGE_STRAIGHT_VALUES)) {
-            return FULL_LARGE_STRAIGHT;
+        return calculateScoreForStraightRule(rollValues, LARGE_STRAIGHT_VALUES, FULL_LARGE_STRAIGHT);
+    }
+
+    private static int calculateScoreForStraightRule(List<Integer> rollValues,
+                                                     Set<Integer> straightValues,
+                                                     int fullScore) {
+        if (checkIfRollValuesContainsAllRange(rollValues, straightValues)) {
+            return fullScore;
         }
         return ZERO;
     }
 
     private static boolean checkIfRollValuesContainsAllRange(List<Integer> rollValues, Set<Integer> range) {
         return new HashSet<>(rollValues).containsAll(range);
+    }
+
+    private static Stream<Map.Entry<Integer, List<Integer>>> sortGroupedValuesByKey(Map<Integer, List<Integer>> groupedByDiceValue) {
+        return groupedByDiceValue.entrySet().
+                stream().
+                sorted(Collections.reverseOrder(Map.Entry.comparingByKey()));
     }
 
     private static Map<Integer, List<Integer>> groupByDiceValues(List<Integer> values) {
